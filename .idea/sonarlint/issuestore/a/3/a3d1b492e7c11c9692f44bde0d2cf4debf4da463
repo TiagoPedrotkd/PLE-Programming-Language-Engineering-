@@ -1,0 +1,8 @@
+
+Skotlin:S6619/";Remove this useless elvis operation ?:, it always succeeds.(Ùü™ð
+Skotlin:S66195";Remove this useless elvis operation ?:, it always succeeds.(Ë¹¼‰
+Ykotlin:S6619-"<Remove this useless null-safe access ?., it always succeeds.(ìïÿÉÿÿÿÿÿ
+Tkotlin:S66195"<Remove this useless null-safe access ?., it always succeeds.(Ë¹¼‰
+Ekotlin:S6530-"(Remove this cast that can never succeed.(ìïÿÉÿÿÿÿÿ
+@kotlin:S65305"(Remove this cast that can never succeed.(Ë¹¼‰
+rkotlin:S1186	"ZAdd a nested comment explaining why this function is empty or complete the implementation.(üèª¦

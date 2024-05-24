@@ -1,0 +1,16 @@
+load $1 to doc
+curso = doc.curso
+ucs = doc.ucs
+siglas = doc.ucs.sigla
+creditos = doc.ucs.creditos | SUM
+maxHorasUc = doc.ucs.horas | MAX
+total = ucs | COUNT
+
+resumo = {
+"curso": curso,
+"ucs": siglas,
+"creditos": creditos,
+"maxHoras": maxHorasUc,
+"totalUcs": total
+}
+save resumo to $2

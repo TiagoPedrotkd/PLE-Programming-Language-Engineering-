@@ -1,0 +1,5 @@
+
+Ekotlin:S108'")Either remove or fill this block of code.(ŽÃ¸ßýÿÿÿÿ
+®kotlin:S6532/"Replace this if expression with require(!(stackVal.size != 1 || !stackOp.isEmpty())) { "ExpressÃ£o invÃ¡lida: elementos restantes nas pilhas" }.(×‹×³ùÿÿÿÿ
+kotlin:S6532?"iReplace this if expression with require(stackVal.size >= 2) { "ExpressÃ£o invÃ¡lida: faltam operandos" }.(É÷­µ
+Nkotlin:S6529/"1Replace collection size check with "isNotEmpty()"(×‹×³ùÿÿÿÿ

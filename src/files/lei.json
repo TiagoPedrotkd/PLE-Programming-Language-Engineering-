@@ -1,0 +1,21 @@
+{
+  "curso":"LEI",
+  "ucs":[
+    {
+      "sigla":"IP",
+      "creditos":6,
+      "horas":4.5
+    },
+    {
+      "sigla":"POO",
+      "creditos":6,
+      "horas":4.5
+    },
+    {
+      "sigla":"ELP",
+      "creditos":6,
+      "horas":3.0
+    }
+  ]
+}
+

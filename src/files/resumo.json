@@ -1,0 +1,11 @@
+{
+"curso": "LEI",
+"ucs": [
+"IP",
+"POO",
+"ELP"
+],
+"creditos": 18.0,
+"maxHoras": 4.5,
+"totalUcs": 3
+}
