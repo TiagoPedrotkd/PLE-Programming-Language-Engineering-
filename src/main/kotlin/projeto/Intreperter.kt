@@ -26,8 +26,8 @@ data class JIntepreter(val script : JScript){
         when (instruction){
             is JLoad -> {
                 memory[instruction.id] = instruction.run(argJScript[instruction.ficheiro] ?: instruction.ficheiro)
-                println("Memory after load: $memory")
-                println("ArgJScript after load: $argJScript")
+                //println("Memory after load: $memory")
+                //println("ArgJScript after load: $argJScript")
             }
             is JSave -> {
                 val objeto = memory[instruction.id] ?: throw IllegalArgumentException("No value found for id: ${instruction.id}")
@@ -35,8 +35,8 @@ data class JIntepreter(val script : JScript){
             }
             is JAssign -> {
                 memory[instruction.varId] = evaluateExpression(instruction.expression, line)
-                println("Memory after assign: $memory")
-                println("ArgJScript after assign: $argJScript")
+                //println("Memory after assign: $memory")
+                //println("ArgJScript after assign: $argJScript")
             }
         }
     }

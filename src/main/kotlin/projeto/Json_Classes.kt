@@ -93,7 +93,7 @@ data class JLoad(val ficheiro: String, val id: String) : JInstruction {
         val parser = JSONParser(CommonTokenStream(lexer))
         val v = parser.value()
 
-        println("O $ficheiroNomeReal foi carregado para $id")
+        //println("O $ficheiroNomeReal foi carregado para $id")
         return v.toAST()
     }
 }
@@ -108,7 +108,7 @@ data class JSave(val ficheiro: String, val id: String) : JInstruction {
         file.bufferedWriter().use { out ->
             out.write(content)
         }
-        println("$id foi guardado para o ficheiro '$fileName'")
+        //println("$id foi guardado para o ficheiro '$fileName'")
         return JString(content)
     }
 }

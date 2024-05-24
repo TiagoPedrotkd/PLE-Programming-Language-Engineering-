@@ -13,7 +13,7 @@ class ClassesTest {
     @BeforeEach
     fun setup() {
         val script = JScript(listOf(
-            JLoad("lei.json", "doc"),
+            JLoad("src/files/lei.json", "doc"),
             JAssign("curso", JPropertyAccess("doc", listOf("curso"))),
             JAssign("ucs", JPropertyAccess("doc", listOf("ucs"))),
             JAssign("siglas", JPropertyAccess("doc", listOf("ucs", "sigla"))),
@@ -77,7 +77,7 @@ class ClassesTest {
 
     @Test
     fun testJLoad(){
-        val filename = "lei.json"
+        val filename = "src/files/lei.json"
         val jload = JLoad("\$1", "doc")
 
         val result = jload.run(filename)
@@ -108,7 +108,7 @@ class ClassesTest {
 
     @Test
     fun testJSave(){
-        val filename = "output_test.json"
+        val filename = "src/files/output_test.json"
 
         val jSave = JSave("\$2", "resumo")
         val resumo = JObject(listOf(
