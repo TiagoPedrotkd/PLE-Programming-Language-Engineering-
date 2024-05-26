@@ -36,7 +36,7 @@ fun InstructionContext.toAst() : JInstruction{
     if (loadStatement() == null) {
         if(saveStatement() != null){
             val save = saveStatement()
-            return JSave(save.PARAMETRO().text, save.ID().text)
+            return JSave(save.PARAMETER().text, save.ID().text)
         } else if(assign() != null){
             val assign = assign()
             return JAssign(assign.ID().text, assign.expression().toAst())
@@ -45,7 +45,7 @@ fun InstructionContext.toAst() : JInstruction{
         }
     } else {
         val load = loadStatement()
-        return JLoad(load.PARAMETRO().text, load.ID().text)
+        return JLoad(load.PARAMETER().text, load.ID().text)
     }
 }
 
@@ -60,7 +60,7 @@ fun ExpressionContext.toAst(): JExpression {
             return when (expressionAccess.size) {
                 2 -> {
                     val expressionB = expressionAccess[0].split(".")
-                    JOperationsAcess(JPropertyAccess(expressionB[0], expressionB.drop(1)), expressionAccess[1])
+                    JOperationsAccess(JPropertyAccess(expressionB[0], expressionB.drop(1)), expressionAccess[1])
                 }
 
                 else -> {

@@ -17,7 +17,9 @@ data class JIntepreter(val script : JScript){
                 executeInstruction(instruction, indexVal)
             }catch (e : Exception){
                 println("Error at line ${indexVal + 1}: ${e.message}")
-                script.errosList.add(JVarError(instruction.toString(), indexVal + 1))
+                script.validate()
+                script.execute()
+                script.errorsList.add(JVarError(instruction.toString(), indexVal + 1))
             }
         }
     }
@@ -46,13 +48,14 @@ data class JIntepreter(val script : JScript){
             is JVariable -> evaluateVariable(expression, line)
             is JValueExpression -> evaluateValueExpression(expression, line)
             is JPropertyAccess -> evaluatePropertyAccess(expression, line)
-            is JOperationsAcess -> evaluateOperationsAccess(expression, line)
+            is JOperationsAccess -> evaluateOperationsAccess(expression, line)
+            else -> TODO()
         }
     }
 
     private fun evaluateVariable(expression: JVariable, line: Int): JValue {
         return memory[expression.name] ?: throw IllegalArgumentException("No value found for variable: ${expression.name}").also {
-            script.errosList.add(JVarError(expression.name, line))
+            script.errorsList.add(JVarError(expression.name, line))
         }
     }
 
@@ -63,7 +66,7 @@ data class JIntepreter(val script : JScript){
                 if (fieldValue != null) {
                     JField(field.name, fieldValue)
                 } else {
-                    script.errosList.add(JVarError(field.value.toString(), line))
+                    script.errorsList.add(JVarError(field.value.toString(), line))
                     throw IllegalArgumentException("No value found for variable: ${field.value}")
                 }
             }
@@ -95,12 +98,12 @@ data class JIntepreter(val script : JScript){
                     JArray(values)
                 } else {
                     throw IllegalArgumentException("Property ${expression.property[1]} not found in object").also {
-                        script.errosList.add(JVarError(expression.toString(), line))
+                        script.errorsList.add(JVarError(expression.toString(), line))
                     }
                 }
             }
             else -> throw IllegalArgumentException("Property ${expression.property[0]} not found in object").also {
-                script.errosList.add(JVarError(expression.toString(), line))
+                script.errorsList.add(JVarError(expression.toString(), line))
             }
         }
     }
@@ -110,16 +113,16 @@ data class JIntepreter(val script : JScript){
             is JObject -> {
                 baseValue.fields.find { it.name == property }?.value
                     ?: throw IllegalArgumentException("Property $property not found in object").also {
-                        script.errosList.add(JVarError(expression.toString(), line))
+                        script.errorsList.add(JVarError(expression.toString(), line))
                     }
             }
             else -> throw IllegalArgumentException("Property $property not found in object").also {
-                script.errosList.add(JVarError(expression.toString(), line))
+                script.errorsList.add(JVarError(expression.toString(), line))
             }
         }
     }
 
-    private fun evaluateOperationsAccess(expression: JOperationsAcess, line: Int): JValue {
+    private fun evaluateOperationsAccess(expression: JOperationsAccess, line: Int): JValue {
         val value = evaluateExpression(expression.value, line)
         return when (val operator = expression.operator) {
             "SUM" -> evaluateSum(value, expression, line)
@@ -128,63 +131,63 @@ data class JIntepreter(val script : JScript){
             "MIN" -> evaluateMin(value, expression, line)
             "AVG" -> evaluateAvg(value, expression, line)
             else -> throw IllegalArgumentException("Unsupported operator: $operator").also {
-                script.errosList.add(JVarError(expression.toString(), line))
+                script.errorsList.add(JVarError(expression.toString(), line))
             }
         }
     }
 
-    private fun evaluateSum(value: JValue, expression: JOperationsAcess, line: Int): JValue {
+    private fun evaluateSum(value: JValue, expression: JOperationsAccess, line: Int): JValue {
         return if (value is JArray) {
             val sum = value.elements.filterIsInstance<JNumber>().sumOf { it.value.toDouble() }
             JNumber(sum)
         } else {
             throw IllegalArgumentException("SUM operation requires an array of numbers").also {
-                script.errosList.add(JVarError(expression.toString(), line))
+                script.errorsList.add(JVarError(expression.toString(), line))
             }
         }
     }
 
-    private fun evaluateCount(value: JValue, expression: JOperationsAcess, line: Int): JValue {
+    private fun evaluateCount(value: JValue, expression: JOperationsAccess, line: Int): JValue {
         return if (value is JArray) {
             val count = value.elements.count()
             JNumber(count)
         } else {
             throw IllegalArgumentException("COUNT operation requires an array of a value").also {
-                script.errosList.add(JVarError(expression.toString(), line))
+                script.errorsList.add(JVarError(expression.toString(), line))
             }
         }
     }
 
-    private fun evaluateMax(value: JValue, expression: JOperationsAcess, line: Int): JValue {
+    private fun evaluateMax(value: JValue, expression: JOperationsAccess, line: Int): JValue {
         return if (value is JArray) {
             val max = value.elements.filterIsInstance<JNumber>().maxOf { it.value.toDouble() }
             JNumber(max)
         } else {
             throw IllegalArgumentException("MAX operation requires an array of numbers").also {
-                script.errosList.add(JVarError(expression.toString(), line))
+                script.errorsList.add(JVarError(expression.toString(), line))
             }
         }
     }
 
-    private fun evaluateMin(value: JValue, expression: JOperationsAcess, line: Int): JValue {
+    private fun evaluateMin(value: JValue, expression: JOperationsAccess, line: Int): JValue {
         return if (value is JArray) {
             val min = value.elements.filterIsInstance<JNumber>().minOf { it.value.toDouble() }
             JNumber(min)
         } else {
             throw IllegalArgumentException("MIN operation requires an array of numbers").also {
-                script.errosList.add(JVarError(expression.toString(), line))
+                script.errorsList.add(JVarError(expression.toString(), line))
             }
         }
     }
 
-    private fun evaluateAvg(value: JValue, expression: JOperationsAcess, line: Int): JValue {
+    private fun evaluateAvg(value: JValue, expression: JOperationsAccess, line: Int): JValue {
         return if (value is JArray) {
             val numbers = value.elements.filterIsInstance<JNumber>()
             val avg = numbers.map { it.value.toDouble() }.average()
             JNumber(avg)
         } else {
             throw IllegalArgumentException("AVG operation requires an array of numbers").also {
-                script.errosList.add(JVarError(expression.toString(), line))
+                script.errorsList.add(JVarError(expression.toString(), line))
             }
         }
     }

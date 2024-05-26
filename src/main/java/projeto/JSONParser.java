@@ -1,4 +1,4 @@
-// Generated from C:/Users/tiago/OneDrive/Ambiente de Trabalho/Projetos/PPM/ELP_1/src/main/kotlin/projeto/JSON.g4 by ANTLR 4.13.1
+// Generated from C:/Users/tiago/OneDrive/Documentos/GitHub/PLE-Programming-Language-Engineering-/src/main/kotlin/projeto/JSON.g4 by ANTLR 4.13.1
 package projeto;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -18,7 +18,7 @@ public class JSONParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, T__11=12, OP=13, PARAMETRO=14, ID=15, STRING=16, NUMBER=17, 
+		T__9=10, T__10=11, T__11=12, OP=13, PARAMETER=14, ID=15, STRING=16, NUMBER=17, 
 		INT=18, BOOLEAN=19, NULLVALUE=20, WHITESPACE=21;
 	public static final int
 		RULE_value = 0, RULE_object = 1, RULE_pair = 2, RULE_array = 3, RULE_script = 4, 
@@ -42,7 +42,7 @@ public class JSONParser extends Parser {
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, "OP", "PARAMETRO", "ID", "STRING", "NUMBER", "INT", "BOOLEAN", 
+			null, "OP", "PARAMETER", "ID", "STRING", "NUMBER", "INT", "BOOLEAN", 
 			"NULLVALUE", "WHITESPACE"
 		};
 	}
@@ -542,7 +542,7 @@ public class JSONParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class LoadStatementContext extends ParserRuleContext {
-		public TerminalNode PARAMETRO() { return getToken(JSONParser.PARAMETRO, 0); }
+		public TerminalNode PARAMETER() { return getToken(JSONParser.PARAMETER, 0); }
 		public TerminalNode ID() { return getToken(JSONParser.ID, 0); }
 		public LoadStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -572,7 +572,7 @@ public class JSONParser extends Parser {
 			setState(73);
 			match(T__6);
 			setState(74);
-			match(PARAMETRO);
+			match(PARAMETER);
 			setState(75);
 			match(T__7);
 			setState(76);
@@ -593,7 +593,7 @@ public class JSONParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class SaveStatementContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(JSONParser.ID, 0); }
-		public TerminalNode PARAMETRO() { return getToken(JSONParser.PARAMETRO, 0); }
+		public TerminalNode PARAMETER() { return getToken(JSONParser.PARAMETER, 0); }
 		public SaveStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -626,7 +626,7 @@ public class JSONParser extends Parser {
 			setState(80);
 			match(T__7);
 			setState(81);
-			match(PARAMETRO);
+			match(PARAMETER);
 			}
 		}
 		catch (RecognitionException re) {
