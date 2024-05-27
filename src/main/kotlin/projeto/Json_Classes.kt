@@ -65,66 +65,6 @@ data class JScript(val instructions: List<JInstruction>) {
             else -> 1
         }
     }
-
-    fun execute(): List<JError> {
-        val variableMap = mutableMapOf<String, JValue>()
-        instructions.forEachIndexed { index, instruction ->
-            try {
-                when (instruction) {
-                    is JAssign -> {
-                        val value = evaluateExpression(instruction.expression, variableMap)
-                        variableMap[instruction.varId] = value
-                    }
-                    is JLoad -> {
-                        val value = instruction.run(instruction.ficheiro)
-                        variableMap[instruction.id] = value
-                    }
-                    is JSave -> {
-                        val value = variableMap[instruction.id]
-                            ?: throw JExecutionException("Variable '${instruction.id}' not found", index + 1)
-                        instruction.run(value, instruction.ficheiro)
-                    }
-                }
-            } catch (e: JExecutionException) {
-                errorsList.add(JExecutionError(e.message, index + 1))
-            }
-        }
-        return errorsList
-    }
-
-    private fun evaluateExpression(expression: JExpression, variableMap: Map<String, JValue>): JValue {
-        return when (expression) {
-            is JVariable -> variableMap[expression.name]
-                ?: throw JExecutionException("Variable '${expression.name}' not found", 0)
-            is JValueExpression -> expression.value
-            is JPropertyAccess -> {
-                val baseValue = variableMap[expression.base]
-                    ?: throw JExecutionException("Variable '${expression.base}' not found", 0)
-                evaluatePropertyAccess(baseValue, expression.property)
-            }
-            is JOperationsAccess -> {
-                val value = evaluateExpression(expression.value, variableMap)
-                if (expression.operator == "SUM" && value is JArray) {
-                    JNumber(value.elements.filterIsInstance<JNumber>().sumOf { it.value.toDouble() })
-                } else {
-                    throw JExecutionException("Unsupported operation '${expression.operator}'", 0)
-                }
-            }
-            else -> throw JExecutionException("Unsupported expression", 0)
-        }
-    }
-
-    private fun evaluatePropertyAccess(baseValue: JValue, property: List<String>): JValue {
-        var currentValue = baseValue
-        for (prop in property) {
-            currentValue = when (currentValue) {
-                is JObject -> currentValue.fields.find { it.name == prop }?.value
-                    ?: throw JExecutionException("Field '$prop' not found", 0)
-                else -> throw JExecutionException("Cannot access property '$prop' on non-object type", 0)
-            }
-        }
-        return currentValue
-    }
 }
 
 sealed interface JValue {
@@ -228,6 +168,7 @@ data class JSave(val ficheiro: String, val id: String) : JInstruction {
             out.write(content)
         }
         // println("$id foi guardado para o ficheiro '$fileName'")
+        println("Arquivo foi gerado")
         return JString(content)
     }
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="projeto.ClassesTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2024-05-24T16:05:38" hostname="TIAGO" time="0.548">
+<testsuite name="projeto.ClassesTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2024-05-26T22:46:17" hostname="TIAGO" time="0.635">
   <properties/>
-  <testcase name="test siglas assignment()" classname="projeto.ClassesTest" time="0.381"/>
-  <testcase name="test total assignment()" classname="projeto.ClassesTest" time="0.012"/>
-  <testcase name="testJLoad()" classname="projeto.ClassesTest" time="0.013"/>
-  <testcase name="testJSave()" classname="projeto.ClassesTest" time="0.078"/>
-  <testcase name="scriptTest()" classname="projeto.ClassesTest" time="0.016"/>
-  <testcase name="test curso assignment()" classname="projeto.ClassesTest" time="0.007"/>
-  <testcase name="test ucs assignment()" classname="projeto.ClassesTest" time="0.006"/>
-  <testcase name="test maxHorasUc assignment()" classname="projeto.ClassesTest" time="0.007"/>
-  <testcase name="test creditos assignment()" classname="projeto.ClassesTest" time="0.005"/>
+  <testcase name="test siglas assignment()" classname="projeto.ClassesTest" time="0.415"/>
+  <testcase name="test total assignment()" classname="projeto.ClassesTest" time="0.008"/>
+  <testcase name="testJLoad()" classname="projeto.ClassesTest" time="0.009"/>
+  <testcase name="testJSave()" classname="projeto.ClassesTest" time="0.111"/>
+  <testcase name="scriptTest()" classname="projeto.ClassesTest" time="0.041"/>
+  <testcase name="test curso assignment()" classname="projeto.ClassesTest" time="0.008"/>
+  <testcase name="test ucs assignment()" classname="projeto.ClassesTest" time="0.005"/>
+  <testcase name="test maxHorasUc assignment()" classname="projeto.ClassesTest" time="0.006"/>
+  <testcase name="test creditos assignment()" classname="projeto.ClassesTest" time="0.006"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

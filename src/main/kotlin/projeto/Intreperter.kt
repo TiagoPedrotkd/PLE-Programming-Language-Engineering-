@@ -4,7 +4,7 @@ data class JIntepreter(val script : JScript){
     val memory = mutableMapOf<String, JValue>()
     private val argJScript = mutableMapOf<String, String>()
 
-    fun run(arguments : Array<String>){
+    fun run(arguments: List<String>){
         var index = 1
         arguments.forEach {
                 it2 ->
@@ -14,12 +14,12 @@ data class JIntepreter(val script : JScript){
 
         script.instructions.forEachIndexed { indexVal, instruction ->
             try {
+                script.validate()
                 executeInstruction(instruction, indexVal)
             }catch (e : Exception){
                 println("Error at line ${indexVal + 1}: ${e.message}")
-                script.validate()
-                script.execute()
                 script.errorsList.add(JVarError(instruction.toString(), indexVal + 1))
+                return
             }
         }
     }

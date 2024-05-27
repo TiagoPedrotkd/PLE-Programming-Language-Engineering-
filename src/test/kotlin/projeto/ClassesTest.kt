@@ -10,6 +10,7 @@ import kotlin.test.assertEquals
 class ClassesTest {
 
     private lateinit var interpreter: JIntepreter
+
     @BeforeEach
     fun setup() {
         val script = JScript(listOf(
@@ -17,9 +18,9 @@ class ClassesTest {
             JAssign("curso", JPropertyAccess("doc", listOf("curso"))),
             JAssign("ucs", JPropertyAccess("doc", listOf("ucs"))),
             JAssign("siglas", JPropertyAccess("doc", listOf("ucs", "sigla"))),
-            JAssign("creditos", JOperationsAcess(JPropertyAccess("doc", listOf("ucs", "creditos")), "SUM")),
-            JAssign("maxHorasUc", JOperationsAcess(JPropertyAccess("doc", listOf("ucs", "horas")), "MAX")),
-            JAssign("total", JOperationsAcess(JPropertyAccess("ucs", emptyList()), "COUNT"))
+            JAssign("creditos", JOperationsAccess(JPropertyAccess("doc", listOf("ucs", "creditos")), "SUM")),
+            JAssign("maxHorasUc", JOperationsAccess(JPropertyAccess("doc", listOf("ucs", "horas")), "MAX")),
+            JAssign("total", JOperationsAccess(JPropertyAccess("ucs", emptyList()), "COUNT"))
         ))
         interpreter = JIntepreter(script)
     }
@@ -54,9 +55,9 @@ class ClassesTest {
             JAssign("curso", JPropertyAccess("doc", listOf("curso"))),
             JAssign("ucs", JPropertyAccess("doc", listOf("ucs"))),
             JAssign("siglas", JPropertyAccess("doc", listOf("ucs", "sigla"))),
-            JAssign("creditos", JOperationsAcess(JPropertyAccess("doc", listOf("ucs", "creditos")), "SUM")),
-            JAssign("maxHorasUc", JOperationsAcess(JPropertyAccess("doc", listOf("ucs", "horas")), "MAX")),
-            JAssign("total", JOperationsAcess(JPropertyAccess("ucs", emptyList()), "COUNT")),
+            JAssign("creditos", JOperationsAccess(JPropertyAccess("doc", listOf("ucs", "creditos")), "SUM")),
+            JAssign("maxHorasUc", JOperationsAccess(JPropertyAccess("doc", listOf("ucs", "horas")), "MAX")),
+            JAssign("total", JOperationsAccess(JPropertyAccess("ucs", emptyList()), "COUNT")),
             JAssign("resumo", JValueExpression(JObject(listOf(
                 JField("curso", JVariable("curso")),
                 JField("ucs", JVariable("siglas")),
@@ -157,14 +158,16 @@ class ClassesTest {
 
     @Test
     fun `test curso assignment`() {
-        val arguments = arrayOf("input.json")
+        val argumentsArray = arrayOf("input.json")
+        val arguments = argumentsArray.toList()
         interpreter.run(arguments)
         assertEquals(JString("LEI"), interpreter.memory["curso"])
     }
 
     @Test
     fun `test ucs assignment`() {
-        val arguments = arrayOf("input.json")
+        val argumentsArray = arrayOf("input.json")
+        val arguments = argumentsArray.toList()
         interpreter.run(arguments)
         val expectedUcs = JArray(listOf(
             JObject(listOf(JField("sigla", JString("IP")), JField("creditos", JNumber(6.0)), JField("horas", JNumber(4.5)))),
@@ -176,7 +179,8 @@ class ClassesTest {
 
     @Test
     fun `test siglas assignment`() {
-        val arguments = arrayOf("input.json")
+        val argumentsArray = arrayOf("input.json")
+        val arguments = argumentsArray.toList()
         interpreter.run(arguments)
         val expectedSiglas = JArray(listOf(JString("IP"), JString("POO"), JString("ELP")))
         assertEquals(expectedSiglas, interpreter.memory["siglas"])
@@ -184,21 +188,24 @@ class ClassesTest {
 
     @Test
     fun `test creditos assignment`() {
-        val arguments = arrayOf("input.json")
+        val argumentsArray = arrayOf("input.json")
+        val arguments = argumentsArray.toList()
         interpreter.run(arguments)
         assertEquals(JNumber(18.0), interpreter.memory["creditos"])
     }
 
     @Test
     fun `test maxHorasUc assignment`() {
-        val arguments = arrayOf("input.json")
+        val argumentsArray = arrayOf("input.json")
+        val arguments = argumentsArray.toList()
         interpreter.run(arguments)
         assertEquals(JNumber(4.5), interpreter.memory["maxHorasUc"])
     }
 
     @Test
     fun `test total assignment`() {
-        val arguments = arrayOf("input.json")
+        val argumentsArray = arrayOf("input.json")
+        val arguments = argumentsArray.toList()
         interpreter.run(arguments)
         assertEquals(JNumber(3), interpreter.memory["total"])
     }
